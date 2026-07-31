@@ -1,0 +1,21 @@
+# dependencies
+node_modules/
+
+# secrets — pulse-api/.env holds JWT_SECRET and the tip jar address
+.env
+.env.*
+!.env.example
+
+# local databases (chain-indexed data, rebuildable via `npm run seed`)
+*.db
+*.db-wal
+*.db-shm
+
+# build output
+dist/
+.vite/
+
+# editor / OS
+.DS_Store
+Thumbs.db
+*.local

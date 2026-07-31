@@ -1,0 +1,55 @@
+:root {
+  --bg: #f7f8fa;
+  --surface: #ffffff;
+  --ink: #1f2348;
+  --ink-soft: #5b6178;
+  --line: #e3e6ee;
+  --blue: #0582ca;
+  --green: #21bca5;
+  --amber: #e9b213;
+  --red: #d94432;
+
+  --tap: 44px; /* minimum touch target, per the mini-app rules */
+
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  /* Mini apps run in a WebView; keep content clear of the notch and home bar. */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+#app {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 20px 16px 40px;
+}
+
+button {
+  font: inherit;
+  min-height: var(--tap);
+}
+
+:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}

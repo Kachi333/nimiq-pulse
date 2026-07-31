@@ -1,0 +1,26 @@
+{
+  "_comment": [
+    "Registry seed. Every entry must be a REAL Nimiq receiving address belonging to a REAL Mini App.",
+    "Collect these from other builders — that is the distribution mechanic (PRD F5).",
+    "Do not invent addresses: the product's whole claim is that its data is real (ADR-8).",
+    "Entries here are inserted as APPROVED, which skips moderation. Only seed apps you trust.",
+    "Run: npm run seed"
+  ],
+  "apps": [],
+  "demoApps": {
+    "_comment": [
+      "Seeded only with `npm run seed -- --demo`. These are real, high-activity mainnet",
+      "addresses used to prove the indexing pipeline end to end. They are NOT Mini Apps.",
+      "Never leave these in a registry shown to judges or users."
+    ],
+    "entries": [
+      {
+        "name": "[DEMO] Nimiq staking contract",
+        "address": "NQ77 0000 0000 0000 0000 0000 0000 0000 0001",
+        "url": "https://nimiq.com",
+        "description": "Pipeline test target. Real address, not a Mini App.",
+        "category": "demo"
+      }
+    ]
+  }
+}

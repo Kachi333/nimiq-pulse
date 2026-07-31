@@ -1,0 +1,58 @@
+/*
+ * Design tokens — DESIGN_SYSTEM.md §7.
+ * Palette converted from Nimiq's own nimiq-css OKLCH definitions.
+ */
+:root {
+  /* surfaces */
+  --surface-base: #1f2348;
+  --surface-raised: #272b52;
+  --surface-inset: #17182b;
+  --surface-earned: #2b2743;
+
+  /* text */
+  --text-primary: #ffffff;
+  --text-body: #d1d1d5;
+  --text-muted: #8b8b95;
+  --text-disabled: #515260;
+
+  /* semantic accents — one job each, never borrowed */
+  --progress-from: #ffc43b;
+  --progress-to: #ff9900;
+  --gradient-progress: linear-gradient(135deg, #ffc43b 0%, #ff9900 100%);
+  --verified: #24cca2;
+  --discover: #0ca6fe;
+  --rare: #8f3fd5;
+  --danger: #ff5c48;
+  --pending: #8b8b95;
+
+  /* lines */
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --overlay-scrim: rgba(15, 17, 35, 0.72);
+  --shadow-float: 0 8px 24px rgba(10, 12, 30, 0.4);
+
+  /* spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+
+  /* radius */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 999px;
+
+  /* motion */
+  --motion-fast: 120ms;
+  --motion-base: 220ms;
+  --motion-celebrate: 600ms;
+
+  --tap-min: 44px;
+
+  color-scheme: dark;
+}
