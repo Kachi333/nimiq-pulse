@@ -9,6 +9,11 @@ import { cleanupNonces, createChallenge, requireAuth, verifyLogin } from './auth
 import { ACHIEVEMENT_CATALOGUE, recompute, xpForLevel, award } from './xp.js'
 import { complete, evaluateDerivedQuests, questsForWallet, recordClaim } from './quests.js'
 import { feedFor } from './discover.js'
+import { autoSeedIfEmpty } from './seed-core.js'
+
+// Hosts with ephemeral disks wipe the database on every deploy. Reseed first so
+// the app never comes back with an empty feed.
+autoSeedIfEmpty()
 
 const app = Fastify({ logger: false })
 

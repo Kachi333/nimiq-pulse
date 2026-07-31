@@ -1,0 +1,40 @@
+# Render blueprint — https://render.com/docs/blueprint-spec
+#
+# Deploy: Render dashboard → New → Blueprint → connect Kachi333/nimiq-pulse.
+# Everything below is applied automatically except the secrets marked sync:false,
+# which Render prompts for so they never live in the repo.
+
+services:
+  - type: web
+    name: pulse-api
+    runtime: node
+    plan: free
+    region: frankfurt # closest to the Nimiq seed nodes
+    rootDir: pulse-api
+    buildCommand: npm install
+    startCommand: npm start
+    # Free instances spin down after 15 min idle. Cold start is 30-60s on top of
+    # ~40s to reach chain consensus, so keep-warm.yml pings this every 10 min.
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: "24" # node:sqlite and process.loadEnvFile need it
+      - key: NIMIQ_NETWORK
+        value: mainalbatross
+      - key: SEED_INCLUDE_DEMO
+        value: "true" # set to false once real Mini App addresses are seeded
+      - key: MIN_REVIEW_LUNA
+        value: "100000"
+      - key: CONFIRMATIONS
+        value: "120"
+      - key: INDEX_INTERVAL_SEC
+        value: "20"
+      - key: JWT_SECRET
+        generateValue: true # Render generates and stores it; never in the repo
+      # Prompted on deploy — both must be set by hand:
+      #   TIP_JAR_ADDRESS  an address you control (Nimiq Pay → Receive)
+      #   CORS_ORIGINS     the exact frontend origin, no trailing slash
+      - key: TIP_JAR_ADDRESS
+        sync: false
+      - key: CORS_ORIGINS
+        sync: false

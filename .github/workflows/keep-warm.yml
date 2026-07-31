@@ -1,0 +1,36 @@
+# Render's free tier spins a service down after 15 minutes of inactivity, and
+# waking it costs 30-60s of cold start plus ~40s to re-reach chain consensus.
+# A judge opening a cold link would wait over a minute.
+#
+# Pinging /health every 10 minutes keeps the instance up. Free-tier allowance is
+# 750 instance-hours/month, and a month is ~730 hours, so one always-on service
+# stays within it.
+#
+# Set the API_URL repository variable after deploying:
+#   gh variable set API_URL --body "https://pulse-api-xxxx.onrender.com"
+
+name: keep-warm
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping API health
+        run: |
+          URL="${{ vars.API_URL }}"
+          if [ -z "$URL" ]; then
+            echo "API_URL variable is not set — skipping."
+            exit 0
+          fi
+          code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 90 "$URL/health" || echo 000)
+          echo "GET $URL/health -> $code"
+          # A cold start can exceed the timeout on the first ping; that is still
+          # a successful wake-up, so only a persistent failure should be loud.
+          if [ "$code" != "200" ]; then
+            echo "::warning::Health check returned $code (service may be waking)"
+          fi
