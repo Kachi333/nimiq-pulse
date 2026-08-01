@@ -61,6 +61,13 @@ export interface QuestView {
   xpReward: number
   targetAppId: string | null
   state: 'available' | 'confirming' | 'completed'
+  /**
+   * Where a TIP_JAR payment must go. Served by the API so the address has one
+   * source of truth — duplicating it in client config guarantees that the two
+   * eventually disagree, and a payment to a stale address is unrecoverable.
+   */
+  payTo?: string
+  payMinLuna?: number
 }
 
 /**
@@ -108,6 +115,9 @@ export function questsForWallet(address: string): QuestView[] {
       xpReward: q.xp_reward,
       targetAppId: q.target_app_id,
       state: done ? 'completed' : claimed ? 'confirming' : 'available',
+      ...(q.type === 'TIP_JAR'
+        ? { payTo: config.tipJarAddress, payMinLuna: config.tipJarMinLuna }
+        : {}),
     }
   })
 }

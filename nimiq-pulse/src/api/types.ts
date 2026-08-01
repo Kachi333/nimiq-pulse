@@ -79,6 +79,9 @@ export interface Quest {
   xpReward: number
   targetAppId: string | null
   state: QuestState
+  /** TIP_JAR only. Served by the API so the address has one source of truth. */
+  payTo?: string
+  payMinLuna?: number
 }
 
 export interface QuestsToday {

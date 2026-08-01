@@ -79,9 +79,9 @@ async function claim(quest: Quest, txHash?: string) {
 /** One approval dialog, raised only by the sheet's confirm tap. */
 async function onSendTip(amountLuna: number) {
   const quest = activeQuest.value
-  if (!quest) return
+  if (!quest?.payTo) return
   try {
-    const txHash = await sendPayment(import.meta.env.VITE_TIP_JAR_ADDRESS ?? '', amountLuna)
+    const txHash = await sendPayment(quest.payTo, amountLuna)
     sheetOpen.value = false
     await claim(quest, txHash)
   } catch (e) {
