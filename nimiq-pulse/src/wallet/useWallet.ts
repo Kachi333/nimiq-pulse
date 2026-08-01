@@ -12,6 +12,8 @@ interface Session {
 const state = reactive({
   session: readRaw<Session>('session'), // restored synchronously — no auth flicker
   connecting: false,
+  /** Distinguishes "talking to the server" from "your wallet is asking you". */
+  phase: null as null | 'reaching' | 'awaiting-approval',
   error: null as { kind: string; message: string } | null,
 })
 
@@ -35,8 +37,13 @@ async function connect(): Promise<boolean> {
   state.error = null
   try {
     await connectProvider()
+    state.phase = 'reaching'
     const challenge = await api.challenge()
+
+    state.phase = 'awaiting-approval'
     const { publicKey, signature } = await signMessage(challenge.message)
+
+    state.phase = 'reaching'
     const auth = await api.verify(challenge.nonce, publicKey, signature)
 
     state.session = { token: auth.sessionToken, address: auth.address }
@@ -52,6 +59,7 @@ async function connect(): Promise<boolean> {
     return false
   } finally {
     state.connecting = false
+    state.phase = null
   }
 }
 

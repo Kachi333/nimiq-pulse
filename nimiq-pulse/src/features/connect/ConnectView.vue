@@ -12,6 +12,12 @@ const { state, connect } = useWallet()
 const declined = computed(() => state.error?.kind === 'user-declined')
 const unavailable = computed(() => state.error?.kind === 'provider-unavailable')
 
+const label = computed(() => {
+  if (state.phase === 'awaiting-approval') return t.connect.awaitingApproval
+  if (state.phase === 'reaching') return t.connect.reaching
+  return t.connect.cta
+})
+
 async function onConnect() {
   if (await connect()) router.replace('/profile')
 }
@@ -30,7 +36,7 @@ async function onConnect() {
       <p class="connect__disclosure">{{ t.connect.disclosure }}</p>
 
       <PulseButton block :disabled="state.connecting" @click="onConnect">
-        {{ state.connecting ? t.connect.connecting : t.connect.cta }}
+        {{ label }}
       </PulseButton>
 
       <p v-if="declined" class="connect__note">{{ t.connect.declined }}</p>

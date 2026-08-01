@@ -8,7 +8,8 @@ export const t = {
     disclosure:
       'Pulse reads your public payment history to find Mini Apps you’ll like. It only stores payments to listed apps.',
     cta: 'Connect wallet',
-    connecting: 'Waiting for approval…',
+    reaching: 'Connecting…',
+    awaitingApproval: 'Waiting for approval…',
     declined: 'No problem — connect whenever you’re ready.',
   },
 
